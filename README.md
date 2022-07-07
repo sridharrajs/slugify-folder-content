@@ -7,4 +7,5 @@ Bunch of utility scripts for automating the chore.
 | file | Description |
 |---|---|
 |`commit.py`| commit the changed files within the repo |
-|`slugify.py`| slugify the file names of all files within a folder |
+|`slugify-contents.py`| slugify the file names of all files within a folder |
+|`slugify.py`| slugify the input sentence |
