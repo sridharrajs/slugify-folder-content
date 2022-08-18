@@ -63,6 +63,10 @@ def commit_changes():
 def push_to_origin(current_branch_name):
     subprocess.run(["git", "push", "origin", current_branch_name,
                    "-f"], check=True, capture_output=True, text=True).stdout
+    subprocess.run(["git", "push", "bb", current_branch_name,
+                   "-f"], check=True, capture_output=True, text=True).stdout
+    subprocess.run(["git", "push", "gl", current_branch_name,
+                   "-f"], check=True, capture_output=True, text=True).stdout
 
 
 if __name__ == '__main__':
