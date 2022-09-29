@@ -60,13 +60,26 @@ def commit_changes():
 
 
 
-def push_to_origin(current_branch_name):
-    subprocess.run(["git", "push", "origin", current_branch_name,
+def push_to_remote(remote, current_branch_name):
+    print('Pushing to', remote)
+    subprocess.run(["git", "push", remote, current_branch_name,
                    "-f"], check=True, capture_output=True, text=True).stdout
     subprocess.run(["git", "push", "bb", current_branch_name,
                    "-f"], check=True, capture_output=True, text=True).stdout
     subprocess.run(["git", "push", "gl", current_branch_name,
                    "-f"], check=True, capture_output=True, text=True).stdout
+
+def get_all_remotes():
+    stdout = subprocess.run(["git", "remote"], check=True,
+                            capture_output=True, text=True).stdout
+
+    remotes = []
+    for remote in stdout.split('\n'):
+        if (len(remote.strip()) > 1):
+            remote_name = remote.split()[0]
+            remotes.append(remote_name)
+
+    return remotes
 
 
 if __name__ == '__main__':
@@ -79,6 +92,9 @@ if __name__ == '__main__':
 
     set_commit_msg(msg)
     commit_changes()
-    push_to_origin(current_branch_name)
+
+    remotes = get_all_remotes()
+    for remote in remotes:
+        push_to_remote(remote, current_branch_name)
 
     print(msg)
